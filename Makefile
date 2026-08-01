@@ -17,5 +17,10 @@ install-dependencies:
 commit-bump-version:
 	git add pbxproj/__init__.py
 	git commit -m "chore: bump version to $(shell python3 -c 'import pbxproj; print(pbxproj.__version__)')"
-	git tag -m "$(shell python3 -c 'import pbxproj; print(pbxproj.__version__)')"
-	git push origin main --tags
+	git push
+
+tag-release:
+	git checkout master
+	git pull --rebase
+	git tag -f "$(shell python3 -c 'import pbxproj; print(pbxproj.__version__)')"
+	git push origin master --tags
